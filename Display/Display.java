@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 
 public class Display extends JFrame implements ActionListener{
 
@@ -13,8 +15,7 @@ public class Display extends JFrame implements ActionListener{
         this.setting();
         this.getContentPane().add(new Game());
     }
-
-
+    
     private void setting() {
         this.setTitle("Dino game");
         this.setSize(size);
@@ -43,9 +44,9 @@ public class Display extends JFrame implements ActionListener{
         }
     }
 
-
     public static void main(String[] args)
     {
         Display display = new Display();
     }
+
 }

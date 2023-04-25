@@ -17,17 +17,12 @@ public class Game extends JPanel implements KeyListener{
     int gameSpeed = 20;
     private long point = 0;
     private long lastPress=0; // last of click
-    Dog dog = new Dog(50,300,50);
-    Wave wave = new Wave(800,300,30,40, 30, this);
+    Dog dog = new Dog(50,365,50);
     Wave[] waveSet = makeWaveSet(3);
     private static int base=400,xStart = 1000;
     static Display display;
-
-
-    //--------------------Cloud--------------------------------
     private Environment[] envSet = makeEnv(2,Environment.CLOUD);
     private Environment building = new Environment(xStart-100,base-150,this,Environment.BUILDING,4);
-
 
     public Game(){
         this.setBounds(0,0,1000,600);
@@ -42,7 +37,6 @@ public class Game extends JPanel implements KeyListener{
             super.paint(g);
             Graphics2D g2 = (Graphics2D) g;
             this.drawBackground(g2);
-            System.out.println("Reading complete.");
             //---POINT----
             g2.setFont(Element.getFont(30));
             g2.setColor(Color.white);
@@ -93,9 +87,10 @@ public class Game extends JPanel implements KeyListener{
         if(Event.checkHit(dog,wave)){
             g2.setColor(new Color(241, 98, 69));
             g2.fillRect(0, 0,1000,1000);
-            dog.health-=10;
+            dog.health-=50;
             if(dog.health<=0) {
-                //display.endGame(this.point);
+                display = new Display();
+                display.endGame(this.point);
                 dog.health = new Dog().health;
                 this.point = 0;
             }
@@ -106,7 +101,7 @@ public class Game extends JPanel implements KeyListener{
         Wave[] waveSet = new Wave[waveNumber];
         for(int i=0; i<waveNumber;i++){
             double waveLocation = 1000+Math.floor(Math.random()*1000);
-            waveSet[i] = new Wave((int)waveLocation, 300,30,40, 30, this);
+            waveSet[i] = new Wave((int)waveLocation, 412,30,40, 30, this);
         }
         return waveSet;
     }
@@ -128,12 +123,13 @@ public class Game extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
-        if(System.currentTimeMillis()-lastPress>600){
+
+        if(System.currentTimeMillis()-lastPress>400){
             if(e.getKeyCode() == 38 || e.getKeyCode() == 32)
             {
                 dog.jump(this);
                 this.repaint();
+                System.out.println(e.getKeyCode());
             }
             lastPress = System.currentTimeMillis();
         }
@@ -142,4 +138,6 @@ public class Game extends JPanel implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
     }
+
+
 }
