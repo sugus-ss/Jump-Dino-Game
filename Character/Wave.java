@@ -3,6 +3,9 @@ package Character;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Wave {
     public int x, y, weight, height, speed;
@@ -32,5 +35,16 @@ public class Wave {
             }
         });
         timer.start();
+    }
+
+    public BufferedImage getImage() {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/tree.png"));
+            return image;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }
