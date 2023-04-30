@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.File;
+
 import javax.swing.*;
 import javax.imageio.ImageIO;
 
@@ -17,45 +18,54 @@ public class Game extends JPanel implements KeyListener{
     int gameSpeed = 20;
     private long point = 0;
     private long lastPress=0; // last of click
+    static Display display;
     Dog dog = new Dog(50,365,50);
     Wave[] waveSet = makeWaveSet(3);
     private static int base=400,xStart = 1000;
-    static Display display;
     private Environment[] envSet = makeEnv(2,Environment.CLOUD);
     private Environment building = new Environment(xStart-100,base-150,this,Environment.BUILDING,4);
+
+    boolean running= true;
 
     public Game(){
         this.setBounds(0,0,1000,600);
         this.addKeyListener(this);
-        this.setFocusable(true);
         this.setLayout(null);
+        this.setFocusable(true);
+    }
+
+    public void updateGameState() {
+
+        display.endGame(this.point);
+        dog.health = new Dog().health;
+        this.point = 0;
     }
 
     @Override
     public void paint(Graphics g) {
         try {
-            super.paint(g);
-            Graphics2D g2 = (Graphics2D) g;
-            this.drawBackground(g2);
-            //---POINT----
-            g2.setFont(Element.getFont(30));
-            g2.setColor(Color.white);
-            g2.drawString("Point : "+point,750,40);
-            //--- dog --
-            g2.setColor(Color.RED);
-            drawDogHealth(g2);
-            g2.drawImage(dog.getImage(),dog.x,dog.y,dog.dogSize,dog.dogSize, null);
-            //----Wave----
-            for(Wave item : waveSet) {
-                drawWave(item,g2);
-            }
-            this.point+=1;
+                super.paint(g);
+                Graphics2D g2 = (Graphics2D) g;
+                this.drawBackground(g2);
+                //---Point----
+                g2.setFont(Element.getFont(30));
+                g2.setColor(Color.white);
+                g2.drawString("Point : "+point,750,40);
+                //--- Dog --
+                g2.setColor(Color.RED);
+                drawDogHealth(g2);
+                g2.drawImage(dog.getImage(),dog.x,dog.y,dog.dogSize,dog.dogSize, null);
+                //----Wave----
+                for(Wave item : waveSet) {
+                    drawWave(item,g2);
+                }
+                this.point+=1;
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error: " + e);
         }
     }
-
 
     // sky, dir, cloud, building
     private void drawBackground(Graphics2D g2) throws IOException {
@@ -83,18 +93,16 @@ public class Game extends JPanel implements KeyListener{
     }
 
     private void drawWave(Wave wave,Graphics2D g2) {
-        g2.drawImage(wave.getImage(),wave.x ,(wave.y-wave.height),40,wave.height+10,null);
-        if(Event.checkHit(dog,wave)){
-            g2.setColor(new Color(241, 98, 69));
-            g2.fillRect(0, 0,1000,1000);
-            dog.health-=50;
-            if(dog.health<=0) {
-                display = new Display();
-                display.endGame(this.point);
-                dog.health = new Dog().health;
-                this.point = 0;
+
+            g2.drawImage(wave.getImage(),wave.x ,(wave.y-wave.height),40,wave.height+10,null);
+            if(Event.checkHit(dog,wave)){
+                g2.setColor(new Color(241, 98, 69));
+                g2.fillRect(0, 0,1000,1000);
+                dog.health-=20;
+                if(dog.health<=0) {
+                    updateGameState();
+                }
             }
-        }
     }
 
     private Wave[] makeWaveSet(int waveNumber){
@@ -108,14 +116,12 @@ public class Game extends JPanel implements KeyListener{
 
     private Environment[] makeEnv(int size,int eType){
         Environment[] envSet = new Environment[size];
-        int far = 0;
         for(int i=0;i<size;i++) {
-            envSet[i] = new Environment(xStart+far,20,this,eType,10);
-            far+=600;
+            envSet[i] = new Environment(xStart,20,this,eType,10);
+            xStart+=600;
         }
         return envSet;
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -123,15 +129,14 @@ public class Game extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-        if(System.currentTimeMillis()-lastPress>400){
+        if(System.currentTimeMillis()-lastPress>500){
             if(e.getKeyCode() == 38 || e.getKeyCode() == 32)
             {
                 dog.jump(this);
                 this.repaint();
                 System.out.println(e.getKeyCode());
+                lastPress = System.currentTimeMillis();
             }
-            lastPress = System.currentTimeMillis();
         }
     }
 
@@ -139,5 +144,9 @@ public class Game extends JPanel implements KeyListener{
     public void keyReleased(KeyEvent e) {
     }
 
+    public static void main(String arg[])
+    {
+        display = new Display();
+    }
 
 }

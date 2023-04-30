@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 
 
 public class Display extends JFrame implements ActionListener{
@@ -15,38 +14,34 @@ public class Display extends JFrame implements ActionListener{
         this.setting();
         this.getContentPane().add(new Game());
     }
-    
+
     private void setting() {
-        this.setTitle("Dino game");
+        this.setTitle("Jump & Dino game");
         this.setSize(size);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(280,100);
         this.setVisible(true);
     }
 
-    private void removeContent() {
+    public void removeContent() {
         this.getContentPane().removeAll();
         this.getContentPane().repaint();
     }
 
     public void endGame(long point) {
         removeContent();
-        this.getContentPane().add(new Menu(point,this));
+        this.getContentPane().add(new display.Menu(point,this));
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("restart")) {
+        if (e.getActionCommand().equals("restart")) {
             removeContent();
             Game game = new Game();
             this.getContentPane().add(game);
             game.requestFocus();
         }
-    }
-
-    public static void main(String[] args)
-    {
-        Display display = new Display();
     }
 
 }

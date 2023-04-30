@@ -39,10 +39,6 @@ public class Environment {
         this.timeMove.start();
     }
 
-    public void stop() {
-        this.timeMove.stop();
-    }
-
     public String getEnvType(int envType){
         String[] name = new String[] {"cloud.png","building.png"};
         return name[envType];

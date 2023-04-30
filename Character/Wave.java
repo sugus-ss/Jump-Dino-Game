@@ -40,7 +40,7 @@ public class Wave {
     public BufferedImage getImage() {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/tree.png"));
+            image = ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/dino.png"));
             return image;
         } catch (Exception e) {
             e.printStackTrace();

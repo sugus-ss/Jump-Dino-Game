@@ -10,7 +10,7 @@ import java.io.File;
 public class Dog {
     public int x,y,dogSize;
 
-    public int health =180;
+    public int health = 180;
     private int jumpHeight = 100;
 
     public Dog(){
@@ -39,7 +39,7 @@ public class Dog {
     public BufferedImage getImage() {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/dog.png"));
+            image = ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/dog_wing.png"));
             return image;
         } catch (Exception e) {
             e.printStackTrace();
