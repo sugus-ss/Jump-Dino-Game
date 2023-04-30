@@ -1,4 +1,4 @@
-# Jump&Dino_Game
+# Jump & Dino Game
 Use java language.
 ## Reference from Jumpmeng(Dog) likes dinosaurs.
 
