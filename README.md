@@ -7,7 +7,6 @@ Use java language.
 How to play
 1. Jump
 ```
-end...
 
 ## Video of Jump & DinoGame
 
