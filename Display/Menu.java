@@ -20,7 +20,7 @@ public class Menu extends JPanel {
 	public Menu(long point,ActionListener main) {
 		try {
 			this.point = point;
-			this.setBackground(new Color(241, 98, 69));
+			this.setBackground(new Color(205, 101, 224));
 			this.setBounds(0,0,1000,600);
 			this.setFocusable(true);
 			this.setLayout(null);

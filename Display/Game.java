@@ -82,7 +82,7 @@ public class Game extends JPanel implements KeyListener{
         try {
             g2.drawImage(ImageIO.read(new File("/Users/gus/Documents/GitHub/Dog_game_java/image/heart.png")),10,20, 20,20,null);
             g2.setStroke(new BasicStroke(18.0f));
-            g2.setColor(new Color(241, 98, 69));
+            g2.setColor(new Color(210, 58, 0));
             g2.drawLine(60, 30,60+dog.health,30);
             g2.setColor(Color.white);
             g2.setStroke(new BasicStroke(6.0f));
