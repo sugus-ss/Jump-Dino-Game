@@ -14,6 +14,8 @@ import Event.Event;
 import Element.*;
 
 public class Game extends JPanel implements KeyListener{
+
+    int gameSpeed = 20;
     private long point = 0;
     private long lastPress=0; // last of click
     static Display display;
@@ -23,6 +25,8 @@ public class Game extends JPanel implements KeyListener{
     private Environment[] envSet = makeEnv(2,Environment.CLOUD);
     private Environment building = new Environment(xStart-100,base-150,this,Environment.BUILDING,4);
 
+    boolean running= true;
+
     public Game(){
         this.setBounds(0,0,1000,600);
         this.addKeyListener(this);
@@ -31,11 +35,12 @@ public class Game extends JPanel implements KeyListener{
     }
 
     public void updateGameState() {
+
         display.endGame(this.point);
         dog.health = new Dog().health;
         this.point = 0;
     }
-    
+
     @Override
     public void paint(Graphics g) {
         try {
