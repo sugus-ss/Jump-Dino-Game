@@ -21,7 +21,6 @@ public class Wave {
         move(game);
     }
 
-
     public void move(JPanel game)//default repeat
     {
         Timer timer = new Timer(50, new ActionListener() {

@@ -33,7 +33,6 @@ public class Display extends JFrame implements ActionListener{
         this.getContentPane().add(new display.Menu(point,this));
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("restart")) {

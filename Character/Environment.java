@@ -26,14 +26,14 @@ public class Environment {
         this.move(page);
     }
 
-    public void move(JPanel page) {
+    public void move(JPanel game) {
         this.timeMove = new Timer(10,new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(x+400<0) {
                     x = startX; // loop of environment
                 }
                 x -= speed;
-                page.repaint();
+                game.repaint();
             }
         });
         this.timeMove.start();
